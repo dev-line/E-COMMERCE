@@ -1,0 +1,127 @@
+body {
+  background:#1c2836 !important;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6,
+.actions a,
+.modal-body p {
+  color: #c0ccda !important;
+}
+
+.bg-light-f {
+  background: #253649 !important;
+}
+
+.bg-secondary-f {
+  background: #1c2836 !important;
+}
+
+.sticky-cart h5,
+.checkout strong,
+.text-muted-f,
+label,
+.modal-header h5 {
+  color: #c0ccda;
+}
+
+#c25 .list-group-item {
+  background: #1f2d3d !important;
+}
+
+.input-number, .input-number-decrement, .input-number-increment,
+.dropdown-menu,
+.modal-content,
+.g-back,
+.g-back-c {
+  background: #253649 !important;
+  color: #c0ccda !important;
+  border: none !important;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.border,
+.custom-select {
+  border: 1px solid #2c4056 !important;
+}
+
+.border-top,
+.modal-footer {
+  border-top: 1px solid #2c4056 !important;
+}
+
+.border-bottom,
+.modal-header {
+  border-bottom: 1px solid #2c4056 !important;
+}
+
+.sticky-cart,
+#food .nav-link {
+  background: #253649 !important;
+  color: #c0ccda !important;
+  border-bottom: 1px solid #2c4056 !important;
+}
+
+#food .nav-link.active {
+  color: #fff !important;
+}
+
+.form-control,
+.form-control:focus {
+  background-color: #2c4056;
+  color: #c0ccda !important;
+  border: 1px solid #223244 !important;
+}
+
+.input-group .input-group-prepend > .input-group-text {
+  background: #2c4056;
+  border-top: none !important;
+  border-bottom: none !important;
+}
+
+.custom-switch .custom-control-label::before {
+  background-color: #253649;
+}
+
+.card {
+  background-color: #253649 !important;
+  border: 0px !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+}
+
+.card h2 {
+  color: #e5e9f2 !important;
+}
+
+.u-acc h2,
+.u-acc p,
+.table {
+  color: #c0ccda !important;
+}
+
+.bg-white,
+a.bg-white:hover,
+a.bg-white:focus,
+#pills-exist .media,
+.custom-select {
+  color: #c0ccda !important;
+  background: #1c2836 !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+}
+
+.bg-white:hover,
+a.bg-white:hover:hover,
+a.bg-white:focus:hover,
+#pills-exist .media:hover,
+.custom-select:hover {
+  background: #253649 !important;
+}
+
+.table .thead-dark th {
+  color: #fff;
+  background-color: #253649;
+  border-color: #253649;
+}
+/*# sourceMappingURL=dark-theme.css.map */

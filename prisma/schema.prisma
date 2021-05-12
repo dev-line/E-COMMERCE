@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Users {
+  id                   Int        @id @default(autoincrement())
+  createdAt            DateTime   @default(now())
+  updatedAt            DateTime   @updatedAt
+  email                String     @unique
+  username             String     @unique
+  phone                Int
+  ville                String
+  address              String
+  codePostal           Int
+  role                 String     @default("USER")
+  name                 String
+  password             String
+  reset_password_token String     @default("")
+  Commands             Commands[]
+}
+
+model Products {
+  id         Int          @id @default(autoincrement())
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  published  Boolean      @default(true)
+  image      String
+  name       String
+  price      Float
+  promo      Float
+  categories Categories[]
+}
+
+model Categories {
+  id        Int        @id @default(autoincrement())
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  name      String
+  products  Products[]
+}
+
+model Commands {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  delivered Boolean  @default(false)
+  products  String
+  authorId  Int?
+  User      Users?   @relation(fields: [authorId], references: [id])
+}
+
+model Info {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  facebook  String
+  Instagram String
+  phone     Int
+  email     String
+  address   String
+  about     String
+}

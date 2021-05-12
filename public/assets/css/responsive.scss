@@ -1,0 +1,21 @@
+/* ==============================
+    Responsive
+==============================*/
+
+@media (max-width: 992px) {
+    #sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 9999;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      background-color: #111;
+      overflow-y: hidden;
+      -webkit-transition: 0.5s;
+      transition: 0.5s;
+    }
+  }
+  
+  /*# sourceMappingURL=responsive.css.map */
