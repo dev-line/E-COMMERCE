@@ -24,8 +24,11 @@ yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-To Open Dashboard [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+To Open Dashboard [http://localhost:3000/admin/dashboard](http://localhost:3000/admin/dashboard) with your browser to see the result.
+
 To Create New ADMIN just open [http://localhost:3000/create](http://localhost:3000/create).
+
 Then run this command :
 ```bash
 npx prisma studio
