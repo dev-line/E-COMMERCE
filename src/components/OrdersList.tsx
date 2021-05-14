@@ -55,7 +55,7 @@ const createdAt = new Date(data?.createdAt!)
                   <div className="btn text-success p-0 smaller font-weight-bold">
                   Statut de la commande:{" "}
                     <span id="ordStatus" className="text-dark">
-                    En attente
+                    {data.delivered?"livré":"En attente"}
                     </span>
                   </div>
                 </li>

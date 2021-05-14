@@ -6,56 +6,78 @@ import DASBOILERPLATE from "../../../components/DASBOILERPLATE";
 import OrdersList from "../../../components/OrdersList";
 import { OrdersSchema, ProductSchema } from "../../../services/data.spec";
 
-export default function orders(props:{data:OrdersSchema[]}) {
-  const [Orders, setOrders] = useState<OrdersSchema[]>(props.data)
-  const [SelectedOrder, setSelectedOrder] = useState<OrdersSchema>()
-  const [SelectedOrderList, setSelectedOrderList] = useState<ProductSchema[]>([])
-  const [Total, setTotal] = useState(0)
-  const createdAt = new Date(SelectedOrder?.createdAt!)
+export default function orders(props: { data: OrdersSchema[] }) {
+  const [Orders, setOrders] = useState<OrdersSchema[]>(props.data);
+  const [SelectedOrder, setSelectedOrder] = useState<OrdersSchema>();
+  const [SelectedOrderList, setSelectedOrderList] = useState<ProductSchema[]>(
+    []
+  );
+  const [Total, setTotal] = useState(0);
+  const createdAt = new Date(SelectedOrder?.createdAt!);
 
-  const SelectOrder = (Order:OrdersSchema,total:number)=>{
-    setSelectedOrder(Order)
-    setTotal(total)
-  }
+  const SelectOrder = (Order: OrdersSchema, total: number) => {
+    setSelectedOrder(Order);
+    setTotal(total);
+  };
   useEffect(() => {
     try {
-      setSelectedOrderList(SelectedOrder?.products! || [])
-    } catch (error) {
-      
-    }
-  }, [SelectedOrder])
-  const RemoveOrder = async(id:number)=>{
-    $(`#delPost${id}`).hide()
-    $(".modal-backdrop").remove()
-    Loading()
-    await Axios.delete(`/api/orders/${id}`).then(res=>{
-      const List = Orders.filter(itm=>itm.id!==res.data.id)
-      setOrders(List)
-      Seccess()
-    }).catch(err=>{
-      Oops()
-    })
-  }
+      setSelectedOrderList(SelectedOrder?.products! || []);
+    } catch (error) {}
+  }, [SelectedOrder]);
+  const RemoveOrder = async (id: number) => {
+    $(`#delPost${id}`).hide();
+    $(".modal-backdrop").remove();
+    Loading();
+    await Axios.delete(`/api/orders/${id}`)
+      .then((res) => {
+        const List = Orders.filter((itm) => itm.id !== res.data.id);
+        setOrders(List);
+        Seccess();
+      })
+      .catch((err) => {
+        Oops();
+      });
+  };
+  const ConfirmOrder = async (id: number) => {
+    $(`#delPost${id}`).hide();
+    $(".modal-backdrop").remove();
+    Loading();
+    await Axios.put(`/api/orders/${id}`)
+      .then((res) => {
+        Seccess();
+      })
+      .catch((err) => {
+        Oops();
+      });
+  };
   function RenderList() {
     console.log(Orders);
-    return Orders.map(res=>(
-      <OrdersList key={res.id} data={res} Select={SelectOrder} Remove={RemoveOrder} />
-    ))
+    return Orders.map((res) => (
+      <OrdersList
+        key={res.id}
+        data={res}
+        Select={SelectOrder}
+        Remove={RemoveOrder}
+      />
+    ));
   }
-  const RenderOrderProduct =()=>{
-    return SelectedOrderList.map((res,key)=>(
+  const RenderOrderProduct = () => {
+    return SelectedOrderList.map((res, key) => (
       <li className="list-group-item" key={key}>
-      <div className="media">
-<div className="u-avatar bg-cover ml-2" style={{background: `url("${res.image}")`}}></div>
-<div className="media-body d-flex justify-content-between align-items-center my-auto">
-    <span className="text-dark opacity-80">{res.name}</span>
-    <span className="text-dark opacity-80">{res.qn}</span>
-<span className="currency-sm">{res.total}</span>
-</div>
-</div>
+        <div className="media">
+          <div
+            className="u-avatar bg-cover ml-2"
+            style={{ background: `url("${res.image}")` }}
+          ></div>
+          <div className="media-body d-flex justify-content-between align-items-center my-auto">
+            <span className="text-dark opacity-80">{res.name}</span>
+            <span className="text-dark opacity-80">{res.qn}</span>
+            <span className="currency-sm">{res.total}</span>
+          </div>
+        </div>
       </li>
-    ))
-  }
+    ));
+  };
 
   return (
     <DASBOILERPLATE title="Ordres">
@@ -71,9 +93,7 @@ export default function orders(props:{data:OrdersSchema[]}) {
                   <th scope="col">Daté</th>
                 </tr>
               </thead>
-              <tbody>
-                {RenderList()}
-              </tbody>
+              <tbody>{RenderList()}</tbody>
             </table>
           </div>
         </div>
@@ -143,7 +163,9 @@ export default function orders(props:{data:OrdersSchema[]}) {
             <div className="container">
               <div className="text-center mb-5">
                 <h5 className="mb-1">Facture de l'acheteur</h5>
-  <span className="d-block text-muted mt-2">Facturer #{SelectedOrder?.id}</span>
+                <span className="d-block text-muted mt-2">
+                  Facturer #{SelectedOrder?.id}
+                </span>
               </div>
 
               <div className="row mb-5">
@@ -156,16 +178,20 @@ export default function orders(props:{data:OrdersSchema[]}) {
 
                 <div className="col-md-4 mb-3 mb-md-0">
                   <p className="font-weight-semi-bold text-dark mb-1">
-                  Date de la demande:
+                    Date de la demande:
                   </p>
-                  <span className="small text-dark">{`${createdAt.getFullYear()}/${createdAt.getMonth()+1}/${createdAt.getDate()}`}</span>
+                  <span className="small text-dark">{`${createdAt.getFullYear()}/${
+                    createdAt.getMonth() + 1
+                  }/${createdAt.getDate()}`}</span>
                 </div>
 
                 <div className="col-md-4 mb-3 mb-md-0">
                   <p className="font-weight-semi-bold text-dark mb-1">
                     Client:
                   </p>
-                  <span className="small text-dark">{SelectedOrder?.User?.name}</span>
+                  <span className="small text-dark">
+                    {SelectedOrder?.User?.name}
+                  </span>
                 </div>
               </div>
 
@@ -175,7 +201,7 @@ export default function orders(props:{data:OrdersSchema[]}) {
             {/* <!-- Body --> */}
             <div className="modal-body pt-3">
               <ul className="list-group vh-25 overflowY-auto">
-    {RenderOrderProduct()}
+                {RenderOrderProduct()}
               </ul>
             </div>
             {/* <!-- End Body --> */}
@@ -185,19 +211,20 @@ export default function orders(props:{data:OrdersSchema[]}) {
                   type="button"
                   className="btn btn-xs btn-outline-secondary border"
                 >
-                  <i className="fas fa-print ml-1"></i>La facture d'impression
+                  <i className="fas fa-print ml-1"></i>Confirmation
                 </button>
                 <button
                   type="button"
                   className="btn btn-xs btn-outline-secondary border mx-2"
                 >
-                  <i className="fas fa-file-download ml-1"></i>PDF
+                  <i className="fas fa-file-download ml-1"></i>Annuler
                 </button>
                 <button
                   type="button"
                   className="btn btn-xs btn-outline-secondary border"
+                  onClick={() => {ConfirmOrder(SelectedOrder?.id!)}}
                 >
-                  <i className="fas fa-save ml-1"></i>Sauvegarder
+                  <i className="fas fa-save ml-1"></i>Confirmé
                 </button>
               </div>
             </div>
@@ -208,15 +235,15 @@ export default function orders(props:{data:OrdersSchema[]}) {
   );
 }
 
-export const getServerSideProps = async (ctx:NextPageContext) => {
-  var OrdersList:OrdersSchema[] = []
-  const {HOST} = process.env
-  await Axios.get(`${HOST}/api/orders`).then(res=>{
-    OrdersList = res.data
-  })
+export const getServerSideProps = async (ctx: NextPageContext) => {
+  var OrdersList: OrdersSchema[] = [];
+  const { HOST } = process.env;
+  await Axios.get(`${HOST}/api/orders`).then((res) => {
+    OrdersList = res.data;
+  });
   return {
-      props:{
-          data:OrdersList
-      }
-  }
-}
+    props: {
+      data: OrdersList,
+    },
+  };
+};
