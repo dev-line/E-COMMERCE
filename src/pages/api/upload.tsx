@@ -2,7 +2,7 @@ import formidable from 'formidable';
 import fs from 'fs';
 import {NextApiRequest,NextApiResponse} from 'next';
 
-import { Auth } from '../../../services/Auth';
+import { Auth } from '../../services/Auth';
 
 export const config = {
   api: {

@@ -8,31 +8,32 @@ import ProductCard from "../components/ProductCard";
 import { ProductSchema, CategSchema } from "../services/data.spec";
 import { EditOrders, GetOrders } from "../services/Orders";
 
-import { NextSeo } from 'next-seo';
-const {HOST} = process.env
-export default function Home(props: { products: ProductSchema[],title:string }) {
-  const { products,title } = props;
+import { NextSeo } from "next-seo";
+const { HOST } = process.env;
+export default function Home(props: {
+  products: ProductSchema[];
+  title: string;
+}) {
+  const { products, title } = props;
   const [state, setState] = useState("Loading");
   const [Method, setMethod] = useState("Create");
-  const [Cookies, setCookies] = useState<string>("")
+  const [Cookies, setCookies] = useState<string>("");
   const [Orders, setOrders] = useState<ProductSchema[]>([]);
   const [SelectedProduct, setSelectedProduct] = useState<ProductSchema>();
   const [QN, setQN] = useState<number>(1);
   const [Swiper, setSwiper] = useState<any>(null);
 
- 
   useEffect(() => {
     if (state == "Loading" || Cookies == "") {
       if (typeof window !== "undefined") {
-        const OrdersStr = localStorage.getItem("ORDERS")
-        setOrders(JSON.parse(OrdersStr!)||[]);
+        const OrdersStr = localStorage.getItem("ORDERS");
+        setOrders(JSON.parse(OrdersStr!) || []);
       }
-      const res = GetOrders(Cookies)
-      setCookies(EditOrders(Orders))
-        setState("Done");
-    }else{
-      setCookies(EditOrders(Orders))
-      localStorage.setItem("ORDERS", JSON.stringify(Orders))
+      setCookies(EditOrders(Orders));
+      setState("Done");
+    } else {
+      setCookies(EditOrders(Orders));
+      localStorage.setItem("ORDERS", JSON.stringify(Orders));
     }
   }, [Orders]);
   const Next = () => {
@@ -65,23 +66,25 @@ export default function Home(props: { products: ProductSchema[],title:string }) 
       );
     });
   };
-  const MostProduct = ()=>{
-    var List:ProductSchema[] = []
-    if (products.length>=10) {
+  const MostProduct = () => {
+    var List: ProductSchema[] = [];
+    if (products.length >= 10) {
       for (let i = 0; i < 4; i++) {
-        var index = Math.floor(Math.random()*products.length)
-        List.push(products[index])
+        var index = Math.floor(Math.random() * products.length);
+        List.push(products[index]);
       }
     }
-    return List.map((res,key)=>{
-     if (key<4) {
-      return <ProductCard
-      key={res.id}
-      {...{ data: res, addOrder: SelectProduct }}
-    />
-     }
-    })
-  }
+    return List.map((res, key) => {
+      if (key < 4) {
+        return (
+          <ProductCard
+            key={res.id}
+            {...{ data: res, addOrder: SelectProduct }}
+          />
+        );
+      }
+    });
+  };
   const settings = {
     infinite: true,
     slidesToShow: 1,
@@ -89,12 +92,14 @@ export default function Home(props: { products: ProductSchema[],title:string }) 
     dots: true,
     speed: 500,
   };
-  const SelectProduct = (data: ProductSchema,MethodT:string) => {
-    setMethod(MethodT)
+  const SelectProduct = (data: ProductSchema, MethodT: string) => {
+    setMethod(MethodT);
     setSelectedProduct(data);
   };
   const Submit = () => {
-    Method=="Create"?AddOrder(SelectedProduct!):EditOrder(SelectedProduct!);
+    Method == "Create"
+      ? AddOrder(SelectedProduct!)
+      : EditOrder(SelectedProduct!);
     setQN(1);
     $("#productInfo").hide();
     $(".modal-backdrop").remove();
@@ -103,13 +108,12 @@ export default function Home(props: { products: ProductSchema[],title:string }) 
     verify(Cookies, "ORDERS", async (err, decoded: any) => {
       if (!err && decoded) {
         var data: ProductSchema[] = decoded.data;
-        const IsInCart = data.findIndex(
-          (itm) => itm.id == Order.id);
+        const IsInCart = data.findIndex((itm) => itm.id == Order.id);
         if (IsInCart >= 0) {
           const NewList = data.map((itm) => {
             if (itm.id == Order.id) {
               itm.qn! += QN;
-              itm.total! = (itm.price *(100-itm.promo)/100)*itm.qn!
+              itm.total! = ((itm.price * (100 - itm.promo)) / 100) * itm.qn!;
               return itm;
             } else {
               return itm;
@@ -119,7 +123,7 @@ export default function Home(props: { products: ProductSchema[],title:string }) 
         } else {
           var NewItem = Order;
           NewItem.qn = QN;
-          NewItem.total =(NewItem.price *(100-NewItem.promo)/100)*QN
+          NewItem.total = ((NewItem.price * (100 - NewItem.promo)) / 100) * QN;
           setOrders([...data, NewItem]);
         }
       } else {
@@ -131,13 +135,12 @@ export default function Home(props: { products: ProductSchema[],title:string }) 
     verify(Cookies, "ORDERS", async (err, decoded: any) => {
       if (!err && decoded) {
         var data: ProductSchema[] = decoded.data;
-        const IsInCart = data.findIndex(
-          (itm) => itm.id == Order.id);
+        const IsInCart = data.findIndex((itm) => itm.id == Order.id);
         if (IsInCart >= 0) {
           const NewList = data.map((itm) => {
             if (itm.id == Order.id) {
               itm.qn! += QN;
-              itm.total! = (itm.price *(100-itm.promo)/100)*itm.qn!
+              itm.total! = ((itm.price * (100 - itm.promo)) / 100) * itm.qn!;
               return itm;
             } else {
               return itm;
@@ -151,43 +154,52 @@ export default function Home(props: { products: ProductSchema[],title:string }) 
     });
   };
   const RemoveOrder = (Order: ProductSchema) => {
-    setOrders(Orders.filter(itm=>itm!=Order));
+    setOrders(Orders.filter((itm) => itm != Order));
   };
   return (
-    <BOILERPLATE {...{Orders:Orders,RemoveOrder: RemoveOrder, SelectProduct: SelectProduct}}>
+    <BOILERPLATE
+      {...{
+        Orders: Orders,
+        RemoveOrder: RemoveOrder,
+        SelectProduct: SelectProduct,
+      }}
+    >
       <NextSeo
-      title={`${title} | Accueil`}
-      description="l'empreinte de la qualité"
-    />
+        title={`${title} | Accueil`}
+        description="l'empreinte de la qualité"
+      />
       <div className="bg-content d-block">
         <div
           className="vh-100 d-flex align-items-center bg-cover overlay position-relative"
           style={{ background: "url('/assets/img/bg/bg-hero.jpg')" }}
         >
           <div className="container text-left z-index-4">
-            <h1 className="text-white mb-lg-5">{ title }</h1>
+            <h1 className="text-white mb-lg-5">{title}</h1>
             <p className="text-white opacity-80 mb-lg-8 w-lg-35">
               l'empreinte de la qualité
             </p>
             <a className="btn btn-dark" href="#stb">
-            Parcourir les produits<i className="fal fa-long-arrow-right mr-2"></i>{" "}
+              Parcourir les produits
+              <i className="fal fa-long-arrow-right mr-2"></i>{" "}
             </a>
           </div>
         </div>
       </div>
 
-    {products.length>=10?(
-            <div className="spacer-30 spacer-lg-80" id="stb">
-            <div className="container">
-              <div className="text-center">
-                <h6 className="mb-2 text-muted-f">Nos produits</h6>
-                <h2 className="mb-5 mb-lg-10">Découvrez les produits premium</h2>
-              </div>
-    
-    <div className="row">{MostProduct()}</div>
+      {products.length >= 10 ? (
+        <div className="spacer-30 spacer-lg-80" id="stb">
+          <div className="container">
+            <div className="text-center">
+              <h6 className="mb-2 text-muted-f">Nos produits</h6>
+              <h2 className="mb-5 mb-lg-10">Découvrez les produits premium</h2>
             </div>
+
+            <div className="row">{MostProduct()}</div>
           </div>
-    ):""}
+        </div>
+      ) : (
+        ""
+      )}
 
       <div className="spacer-30 spacer-lg-80">
         <div className="container-fluid px-2 px-lg-10">
@@ -263,7 +275,14 @@ export default function Home(props: { products: ProductSchema[],title:string }) 
                 </div>
                 <div className="card-body">
                   <Slider {...settings} ref={(S) => setSwiper(S)}>
-                    {products.length >0? RenderProducts():<img className="w-60 h-60" src="/assets/img/icons/searching.svg"/>}
+                    {products.length > 0 ? (
+                      RenderProducts()
+                    ) : (
+                      <img
+                        className="w-60 h-60"
+                        src="/assets/img/icons/searching.svg"
+                      />
+                    )}
                   </Slider>
                 </div>
               </div>
@@ -303,7 +322,7 @@ export default function Home(props: { products: ProductSchema[],title:string }) 
                 <div className="media-body mr-3">
                   <h6 className="mb-0">Livraison gratuite</h6>
                   <p className="small mb-0 d-none d-lg-block">
-                  Livraison gratuite et rapide dans tous les états du pays.
+                    Livraison gratuite et rapide dans tous les états du pays.
                   </p>
                 </div>
               </div>
@@ -315,7 +334,7 @@ export default function Home(props: { products: ProductSchema[],title:string }) 
                 <div className="media-body mr-3">
                   <h6 className="mb-0">Qualité garantie</h6>
                   <p className="small mb-0 d-none d-lg-block">
-                  Produits de qualité garantis.
+                    Produits de qualité garantis.
                   </p>
                 </div>
               </div>
@@ -327,7 +346,7 @@ export default function Home(props: { products: ProductSchema[],title:string }) 
                 <div className="media-body mr-3">
                   <h6 className="mb-0">Support Technique</h6>
                   <p className="small mb-0 d-none d-lg-block">
-                  Support technique toute la semaine 7/7.
+                    Support technique toute la semaine 7/7.
                   </p>
                 </div>
               </div>
@@ -343,12 +362,17 @@ export default function Home(props: { products: ProductSchema[],title:string }) 
           href="#"
           aria-label={title}
         >
-          <img className="brand" src="/assets/img/Logo.png" width='100' alt={title} />
+          <img
+            className="brand"
+            src="/assets/img/Logo.png"
+            width="100"
+            alt={title}
+          />
         </a>
 
         <p className="font-size-1 mb-1">© 2021. Tous droits réservés.</p>
         <p className="font-size-1" dir="ltr">
-        Créé par {" "}
+          Créé par{" "}
           <a href="#" target="_blank">
             Our Team™
           </a>
@@ -433,7 +457,8 @@ export default function Home(props: { products: ProductSchema[],title:string }) 
               <div className="text-center my-3">
                 <h5 className="mb-1">{SelectedProduct?.name!}</h5>
                 <span className="h6 font-weight-semi-bold currency-xs">
-                  {SelectedProduct?.price! *(100-SelectedProduct?.promo!)/100}
+                  {(SelectedProduct?.price! * (100 - SelectedProduct?.promo!)) /
+                    100}
                 </span>
               </div>
               <div className="card border-0">
@@ -447,8 +472,7 @@ export default function Home(props: { products: ProductSchema[],title:string }) 
                         setQN(Number(e.target.value));
                       }}
                     >
-                      <option value={1} selected
-                      >
+                      <option value={1} selected>
                         01
                       </option>
                       <option value={2}>02</option>
@@ -491,6 +515,6 @@ export async function getServerSideProps(context: NextPageContext) {
       console.log(err);
     });
   return {
-    props: { products,title:process.env.WEBSITENAME },
+    props: { products, title: process.env.WEBSITENAME },
   };
 }
