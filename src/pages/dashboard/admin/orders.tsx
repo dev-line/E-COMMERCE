@@ -39,7 +39,7 @@ export default function orders(props: { data: OrdersSchema[] }) {
       });
   };
   const ConfirmOrder = async (id: number) => {
-    $(`#delPost${id}`).hide();
+    $(`#cOrder`).hide();
     $(".modal-backdrop").remove();
     Loading();
     await Axios.put(`/api/orders/${id}`)
@@ -51,7 +51,6 @@ export default function orders(props: { data: OrdersSchema[] }) {
       });
   };
   function RenderList() {
-    console.log(Orders);
     return Orders.map((res) => (
       <OrdersList
         key={res.id}
@@ -209,12 +208,6 @@ export default function orders(props: { data: OrdersSchema[] }) {
               <div className="d-flex justify-content-end">
                 <button
                   type="button"
-                  className="btn btn-xs btn-outline-secondary border"
-                >
-                  <i className="fas fa-print ml-1"></i>Confirmation
-                </button>
-                <button
-                  type="button"
                   className="btn btn-xs btn-outline-secondary border mx-2"
                 >
                   <i className="fas fa-file-download ml-1"></i>Annuler
@@ -222,7 +215,9 @@ export default function orders(props: { data: OrdersSchema[] }) {
                 <button
                   type="button"
                   className="btn btn-xs btn-outline-secondary border"
-                  onClick={() => {ConfirmOrder(SelectedOrder?.id!)}}
+                  onClick={() => {
+                    ConfirmOrder(SelectedOrder?.id!);
+                  }}
                 >
                   <i className="fas fa-save ml-1"></i>Confirmé
                 </button>

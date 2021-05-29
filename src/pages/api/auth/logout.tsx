@@ -9,5 +9,4 @@ export default AuthClient(async function Logout(req: NextApiRequest, res: NextAp
   }else{
     res.status(404)
   }
-
 })

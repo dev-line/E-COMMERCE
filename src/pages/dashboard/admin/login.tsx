@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import Head from "next/head";
 import Router from "next/router";
 import Axios from "axios";
-import { NextPageContext } from "next";
 import { Loading, Oops, Seccess } from "../../../components/Alert";
 
 export default function login(props:{isAuth:boolean}) {

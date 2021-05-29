@@ -107,7 +107,7 @@ const DASBOILERPLATE = (props: { children: any; title: string }) => {
                   </svg>
                 </button>
                 <div className="spacer-30 text-center border-bottom">
-                  <h4 className="text-white mb-0">Site logo</h4>
+                  <h4 className="text-white mb-0">Cosmétique de luxe</h4>
                 </div>
                 <div className="my-5" id="MenuAccordion">
                   {/* <!-- Main --> */}

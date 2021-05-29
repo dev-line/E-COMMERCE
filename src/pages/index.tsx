@@ -1,12 +1,12 @@
 import Axios from "axios";
 import { verify } from "jsonwebtoken";
 import { NextPageContext } from "next";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import BOILERPLATE from "../components/BOILERPLATE";
 import ProductCard from "../components/ProductCard";
-import { ProductSchema, CategSchema } from "../services/data.spec";
-import { EditOrders, GetOrders } from "../services/Orders";
+import { ProductSchema } from "../services/data.spec";
+import { EditOrders } from "../services/Orders";
 
 import { NextSeo } from "next-seo";
 const { HOST } = process.env;
@@ -69,7 +69,7 @@ export default function Home(props: {
   const MostProduct = () => {
     var List: ProductSchema[] = [];
     if (products.length >= 10) {
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < 3; i++) {
         var index = Math.floor(Math.random() * products.length);
         List.push(products[index]);
       }
@@ -85,6 +85,7 @@ export default function Home(props: {
       }
     });
   };
+  /////
   const settings = {
     infinite: true,
     slidesToShow: 1,
@@ -178,7 +179,7 @@ export default function Home(props: {
             <p className="text-white opacity-80 mb-lg-8 w-lg-35">
               l'empreinte de la qualité
             </p>
-            <a className="btn btn-dark" href="#stb">
+            <a className="btn btn-dark" href="#prdct">
               Parcourir les produits
               <i className="fal fa-long-arrow-right mr-2"></i>{" "}
             </a>
@@ -187,7 +188,7 @@ export default function Home(props: {
       </div>
 
       {products.length >= 10 ? (
-        <div className="spacer-30 spacer-lg-80" id="stb">
+        <div className="spacer-30 spacer-lg-80" id="prdct">
           <div className="container">
             <div className="text-center">
               <h6 className="mb-2 text-muted-f">Nos produits</h6>
@@ -203,7 +204,7 @@ export default function Home(props: {
 
       <div className="spacer-30 spacer-lg-80">
         <div className="container-fluid px-2 px-lg-10">
-          <div className="row prod-list">
+          <div className="row">
             <div className="col-12 col-lg-4 d-none d-lg-block">
               <div className="card h-100 bg-content rounded-lg border overflow-hidden">
                 <div className="sticky-top">
@@ -313,7 +314,7 @@ export default function Home(props: {
                     </div>
                 </div>
             </div> --> */}
-      <div className="solution spacer-30 spacer-lg-70 bg-content">
+      <div className="solution spacer-30 spacer-lg-70 bg-content d-block">
         <div className="container">
           <div className="row">
             <div className="col-4">
@@ -492,7 +493,7 @@ export default function Home(props: {
                       type="button"
                       className="btn btn-sm btn-block btn-soft-primary"
                     >
-                      أضف إلى سلة المشتريات
+                      Ajouter au panier
                     </button>
                   </div>
                 </div>

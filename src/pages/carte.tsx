@@ -30,7 +30,7 @@ export default function Carte(props: {title:String}) {
     .then((res) => {
       setUser(res.data.data)
     }).catch(err => {
-        Router.push("/");
+        Router.push("/login");
     })
   }, []);
   useEffect(() => {

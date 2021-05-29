@@ -39,7 +39,7 @@ export default function posts(props:{Products:ProductSchema[]}) {
     })
   }
   return (
-    <DASBOILERPLATE title="المهملات">
+    <DASBOILERPLATE title="Corbeille">
       <div className="col-lg-10">
         <div className="container spacer-70">
           <div className="table-responsive">

@@ -45,7 +45,6 @@ const BOILERPLATE = (props: any, info: { data: InfoSchema }) => {
       $(".menu2").remove();
     }
   }, [Path]);
-  const Title: String = props.Title;
   const Total = () => {
     var total = 0;
     Orders.map((res) => (total += res.total!));
@@ -60,12 +59,8 @@ const BOILERPLATE = (props: any, info: { data: InfoSchema }) => {
     console.log("LOgging Out");
     await Axios.post("/api/auth/logout")
       .then((res) => {
-        console.log(res);
         Router.push("/login");
       })
-      .catch((err) => {
-        console.log(err);
-      });
   }
   return (
     <React.Fragment>

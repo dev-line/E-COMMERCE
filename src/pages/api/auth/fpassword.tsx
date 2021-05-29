@@ -27,7 +27,7 @@ export default async function fpassword(
               ? `<h1>Hi ${data?.name}</h1><br/> To Reset Your Password Go to Link Bellow <br/> <a href="http://localhost:3000/dashboard/admin/rpassword/${jwt}">Reset Password</a>`
               : `<h1>Hi ${data?.name}</h1><br/> To Reset Your Password Go to Link Bellow <br/> <a href="http://localhost:3000/rpassword/${jwt}">Reset Password</a>`;
           var email = {
-            from: "admin@hax.codes",
+            from: "admin@cdl.com",
             to: data?.email,
             subject: "Reset Password",
             html: msg,

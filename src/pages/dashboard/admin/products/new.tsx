@@ -142,7 +142,7 @@ useEffect(() => {
                     <div className="mb-2">
                       <h6 className="small test-muted-f font-weight-bold mb-0">Le Prix</h6>
                     </div>
-                    <input type="number" className="form-control form-control-sm font-size-1 text-muted-f rounded shadow-sm" placeholder="1000 DA" required ref={price} />
+                    <input type="number" className="form-control form-control-sm font-size-1 text-muted-f rounded shadow-sm" placeholder="1000 DA" min={1} required ref={price} />
                   </div>
                   <div className="mb-4">
                     <div className="mb-2">

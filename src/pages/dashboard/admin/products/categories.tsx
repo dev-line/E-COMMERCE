@@ -5,7 +5,6 @@ import CategoriesList from "../../../../components/CategoriesList";
 import { NextApiHandler } from "next";
 import {CategSchema} from "../../../../services/data.spec"
 import { Loading, Oops, Seccess } from "../../../../components/Alert";
-const { API_URL } = process.env;
 
 export default function categories(props:{ Categories:CategSchema[] }) {
   const [Name, setName] = useState("")

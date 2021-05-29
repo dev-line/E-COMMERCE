@@ -1,6 +1,6 @@
 import Axios from "axios";
 import { NextPageContext } from "next";
-import React, { useEffect, useRef, useState } from "react";
+import React, {  useRef } from "react";
 import { Loading, Oops, Seccess } from "../../../../components/Alert";
 import DASBOILERPLATE from "../../../../components/DASBOILERPLATE";
 import { UserSchema } from "../../../../services/data.spec";
@@ -38,7 +38,7 @@ export default function editProfile(props:{User:UserSchema}) {
   }
   const EditPassword = async(e:any)=>{
     e.preventDefault()
-    if (nPass.current?.value == cPass.current?.value) {
+    if (nPass.current?.value === cPass.current?.value) {
       const PasswordData = {
         id: User.id,
         OldPass: oPass.current?.value,
